@@ -157,7 +157,7 @@ function App() {
   const handleNameNext = () => {
     if (!name.trim()) return
     setStep(1)
-    setBubbleText(`À nhonnn bạn ${name} 💜, bạn có nhớ tớ không?`)
+    setBubbleText(`À nhonnn bạn ${name} 💜, bạn có nhớ tớ không? Bấm không thử đi 🦆`)
     // Enable music on interaction
     if (!isMusicPlaying) {
       toggleMusic()
