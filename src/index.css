@@ -1,0 +1,671 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+:root {
+  --primary-pink: #ff85a2;
+  --primary-pink-hover: #ff6388;
+  --primary-yellow: #ffd54f;
+  --text-dark: #4a4a4a;
+  --bg-day: linear-gradient(135deg, #fef08a 0%, #fda4af 50%, #bfdbfe 100%);
+  --bg-night: linear-gradient(135deg, #090d1a 0%, #0f172a 50%, #1e1b4b 100%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  background: var(--bg-day);
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease infinite;
+  transition: background 2s ease, color 2s ease;
+  position: relative;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+body.theme-night {
+  background: var(--bg-night);
+  background-size: 100% 100%;
+  color: #f1f5f9;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating Elements */
+.floating-hearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px;
+  background: rgba(255, 133, 162, 0.4);
+  display: inline-block;
+  height: 20px;
+  margin: 0 10px;
+  position: relative;
+  transform: rotate(-45deg);
+  width: 20px;
+  animation: floatUp 8s linear infinite;
+  border-radius: 50% 50% 0 0;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  background: inherit;
+  border-radius: 50%;
+  height: 20px;
+  position: absolute;
+  width: 20px;
+}
+
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.heart::after {
+  left: 10px;
+  top: 0;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(-45deg) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(-45deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Floating Stars (Night Theme Only) */
+.floating-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2s ease;
+  z-index: 1;
+}
+
+body.theme-night .floating-stars {
+  opacity: 1;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Music Toggle Button */
+.music-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--primary-pink);
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.music-toggle:hover {
+  transform: translateY(-2px);
+  background: var(--primary-pink);
+  color: white;
+  border-color: var(--primary-pink);
+}
+
+.music-icon-playing {
+  animation: rotateMusic 4s linear infinite;
+}
+
+@keyframes rotateMusic {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Main Card Layout */
+.app-container {
+  width: 92%;
+  max-width: 360px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 20px 16px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  text-align: center;
+  z-index: 10;
+  position: relative;
+  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body.theme-night .app-container {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.app-container.swimming-active {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 40px;
+  overflow: hidden;
+}
+
+/* Typography & Content UI */
+h1 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--primary-pink);
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+}
+
+body.theme-night h1 {
+  text-shadow: none;
+  color: #fce7f3;
+}
+
+p.subtitle {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin-bottom: 18px;
+  opacity: 0.85;
+}
+
+/* Inputs & Form styling */
+.input-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px 18px;
+  border-radius: 50px;
+  border: 2px solid rgba(255, 133, 162, 0.2);
+  outline: none;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+input[type="text"]:focus {
+  border-color: var(--primary-pink);
+  box-shadow: 0 0 10px rgba(255, 133, 162, 0.15);
+}
+
+.btn {
+  padding: 10px 22px;
+  border-radius: 50px;
+  border: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary {
+  background: var(--primary-pink);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-pink-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 133, 162, 0.3);
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.btn-secondary:hover {
+  background: #cbd5e1;
+}
+
+/* Question Section Buttons */
+.buttons-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 15px;
+  min-height: 55px;
+  position: relative;
+}
+
+.btn-no-dodge {
+  position: absolute;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 10;
+}
+
+/* Speech Bubble styling */
+.bubble-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.speech-bubble {
+  background: white;
+  border-radius: 16px;
+  padding: 10px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  position: relative;
+  max-width: 92%;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  font-weight: 600;
+  border: 1px solid rgba(255, 133, 162, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.theme-night .speech-bubble {
+  background: #1e293b;
+  color: #f1f5f9;
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: white transparent;
+  display: block;
+  width: 0;
+}
+
+body.theme-night .speech-bubble::after {
+  border-color: #1e293b transparent;
+}
+
+.speech-bubble .helper-text {
+  font-size: 0.75rem;
+  color: var(--primary-pink);
+  margin-top: 8px;
+  opacity: 0.7;
+  animation: blinkHelper 1.5s infinite;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+@keyframes blinkHelper {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Duck Container & States */
+.duck-wrapper {
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 0 12px 0;
+  transition: height 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s ease;
+  width: 100%;
+}
+
+.duck-wrapper.collapsed {
+  height: 0 !important;
+  opacity: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.duck-svg {
+  height: 100%;
+  width: auto;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.04));
+  transform-origin: bottom center;
+  animation: duckFloat 4s ease-in-out infinite;
+  transition: transform 0.5s ease;
+}
+
+@keyframes duckFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+/* Duck Crying Animation */
+.tear {
+  animation: tearFall 1.5s infinite linear;
+  opacity: 0;
+}
+
+.tear-right {
+  animation-delay: 0.75s;
+}
+
+@keyframes tearFall {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(25px) scale(1.1); opacity: 0; }
+}
+
+/* Shaking animation when duck is sad */
+.duck-svg.duck-sad {
+  animation: duckShake 0.4s infinite;
+}
+
+@keyframes duckShake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-2px, 1px) rotate(-1deg); }
+  75% { transform: translate(2px, -1px) rotate(1deg); }
+}
+
+/* Floating Duck Fixed at Bottom (Swimming Mode) */
+.swimming-duck-fixed {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.swimming-duck-fixed .speech-bubble {
+  margin-bottom: 25px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.swimming-duck-fixed .duck-svg {
+  height: 150px;
+  transform-origin: center center;
+  animation: duckSwim 3s ease-in-out infinite;
+}
+
+@keyframes duckSwim {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-5px) rotate(3deg); }
+}
+
+/* Water waves under swimming duck */
+.ripple-circle {
+  transform-origin: center;
+  animation: rippleGrow 2s infinite linear;
+  opacity: 0;
+  stroke: rgba(79, 195, 247, 0.6);
+}
+
+.ripple-circle-2 {
+  animation-delay: 1s;
+}
+
+@keyframes rippleGrow {
+  0% { transform: scale(0.5); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Polaroid Card Gallery */
+.gallery-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 10px;
+  transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  width: 100%;
+}
+
+.gallery-container.swimming-active {
+  transform: translateY(15px) scale(0.92);
+  margin-bottom: 0;
+}
+
+.polaroid-card {
+  background: white;
+  padding: 8px 8px 20px 8px;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  width: 110px;
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.polaroid-card:hover {
+  transform: translateY(-15px) scale(1.05) rotate(0deg) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.polaroid-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid #f1f5f9;
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+
+.polaroid-caption {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  text-align: center;
+}
+
+/* Water wave layout at the absolute bottom */
+.water-floor-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.water-floor-container.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wave-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.wave-path {
+  animation: waveMove 6s infinite linear;
+}
+
+.wave-path-back {
+  animation: waveMoveBack 8s infinite linear;
+}
+
+@keyframes waveMove {
+  0% { d: path('M0,60 Q30,50 60,60 T120,60 T180,60 T240,60 T300,60 T360,60 T420,60 T480,60 T540,60 T600,60 L600,120 L0,120 Z'); }
+  50% { d: path('M0,60 Q30,70 60,60 T120,60 T180,60 T240,60 T300,60 T360,60 T420,60 T480,60 T540,60 T600,60 L600,120 L0,120 Z'); }
+  100% { d: path('M0,60 Q30,50 60,60 T120,60 T180,60 T240,60 T300,60 T360,60 T420,60 T480,60 T540,60 T600,60 L600,120 L0,120 Z'); }
+}
+
+@keyframes waveMoveBack {
+  0% { d: path('M0,70 Q45,80 90,70 T180,70 T270,70 T360,70 T450,70 T540,70 T630,70 L630,120 L0,120 Z'); }
+  50% { d: path('M0,70 Q45,60 90,70 T180,70 T270,70 T360,70 T450,70 T540,70 T630,70 L630,120 L0,120 Z'); }
+  100% { d: path('M0,70 Q45,80 90,70 T180,70 T270,70 T360,70 T450,70 T540,70 T630,70 L630,120 L0,120 Z'); }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN & MOBILE LAYOUTS
+   ========================================================================== */
+@media (max-width: 600px) {
+  .app-container {
+    width: 92%;
+    max-width: 330px;
+    padding: 16px 12px;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  p.subtitle {
+    font-size: 0.85rem;
+  }
+
+  .gallery-container {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 8px 4px 16px 4px;
+    gap: 12px;
+  }
+
+  .polaroid-card {
+    scroll-snap-align: center;
+    width: 100px;
+  }
+
+  /* Custom Thin Pink Scrollbar for Mobile Polaroid Swipe */
+  .gallery-container::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .gallery-container::-webkit-scrollbar-track {
+    background: rgba(255, 133, 162, 0.05);
+    border-radius: 10px;
+  }
+
+  .gallery-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 133, 162, 0.4);
+    border-radius: 10px;
+  }
+
+  .gallery-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 133, 162, 0.6);
+  }
+
+  /* Mobile Swimming Layout Adjustments to prevent Duck/Bubble overlap */
+  .app-container.swimming-active {
+    padding-top: 20px;
+  }
+
+  .gallery-container.swimming-active {
+    transform: translateY(15px) scale(0.72);
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .gallery-container.swimming-active::-webkit-scrollbar {
+    display: none;
+  }
+
+  .swimming-duck-fixed {
+    bottom: 8px !important;
+  }
+
+  .swimming-duck-fixed .duck-svg {
+    height: 85px !important;
+  }
+
+  .swimming-duck-fixed .speech-bubble {
+    margin-bottom: 16px !important;
+    width: 88vw;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+  }
+}
