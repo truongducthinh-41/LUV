@@ -274,13 +274,13 @@ function App() {
         {(step === 3 || step === 4) && (
           <div className={`gallery-container ${step === 4 ? 'swimming-active' : ''}`}>
             <div className="polaroid-card" style={{ transform: 'rotate(-4deg)' }}>
-              <img src="/images/z3841200944793_504ddc30c56bc91d51c919fe8d17613b.jpg" className="polaroid-img" alt="Memory 1" />
+              <img src="images/z3841200944793_504ddc30c56bc91d51c919fe8d17613b.jpg" className="polaroid-img" alt="Memory 1" />
             </div>
             <div className="polaroid-card" style={{ transform: 'rotate(2deg)' }}>
-              <img src="/images/z7858652195663_ad05b1b9f45d3924fd19f5ab2b7c33d5.jpg" className="polaroid-img" alt="Memory 2" />
+              <img src="images/z7858652195663_ad05b1b9f45d3924fd19f5ab2b7c33d5.jpg" className="polaroid-img" alt="Memory 2" />
             </div>
             <div className="polaroid-card" style={{ transform: 'rotate(-2deg)' }}>
-              <img src="/images/z7858654294334_a084d12dd760af24831660c1cd233ca3.jpg" className="polaroid-img" alt="Memory 3" />
+              <img src="images/z7858654294334_a084d12dd760af24831660c1cd233ca3.jpg" className="polaroid-img" alt="Memory 3" />
             </div>
           </div>
         )}
