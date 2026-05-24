@@ -18,6 +18,10 @@ function App() {
 
   const dialogues = [
     "tớ cũng nhớ cậu 🩵",
+    "Tớ cũng rất muốn nói từng lời yêu",
+    "Từng lời thương cậu",
+    "Nhưng tớ không thể",
+    "dù sao thì",
     "tớ sẽ ở đây đợi cậu",
     "cho dù là cậu có ở đâu",
     "có hạnh phúc hay chưa",
@@ -132,7 +136,7 @@ function App() {
       if (typingTimerRef.current) clearInterval(typingTimerRef.current)
 
       // Start night theme when reaching night dialogues
-      if (dialogueIndex >= 9) {
+      if (dialogueIndex >= 13) {
         setIsNightTheme(true)
       } else {
         setIsNightTheme(false)
